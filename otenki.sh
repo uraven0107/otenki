@@ -15,7 +15,7 @@ temp_min=0
 temp_max=0
 
 function fetch_data() {
-				#local res=$(curl -X GET --connect-timeres 30 -s "https://api.openweathermap.org/data/2.5/weather?id=${ID}&units=metric&lang=ja&appid=${APP_KEY}")
+				#data=$(curl -X GET --connect-timeout 30 -s "https://api.openweathermap.org/data/2.5/weather?id=${ID}&units=metric&lang=ja&appid=${APP_KEY}")
 				data=$(cat './test_data/res_sample.json')
 }
 

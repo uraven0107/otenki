@@ -14,7 +14,7 @@ main=''
 temp_min=0
 temp_max=0
 
-function fetch() {
+function fetch_data() {
 				#local res=$(curl -X GET --connect-timeres 30 -s "https://api.openweathermap.org/data/2.5/weather?id=${ID}&units=metric&lang=ja&appid=${APP_KEY}")
 				data=$(cat './test_data/res_sample.json')
 }
@@ -22,7 +22,7 @@ function fetch() {
 function parse_data() {
 				# HTTP STATUS_CODE
 				if [[ $data =~ (\"cod\":[0-9]{3}) ]]; then
-								status_cd=${BASH_REMATCH[1]}
+								status_cd=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
 				fi
 
 				# お天気
@@ -39,12 +39,16 @@ function parse_data() {
 				if [[ $data =~ (\"temp_max\":[0-9]{1,3}\.[0-9]{1,3}) ]]; then
 								temp_max=${BASH_REMATCH[1]}
 				fi
-				
-}
+}			
 
-fetch
+fetch_data
 parse_data
-echo $status_cd
+
+if [[ $status_cd -ge 400 ]]; then
+				echo "APIの実行で問題が発生しました。 HTTP_STATUS_CD=$status_cd"
+				exit 1
+fi
+
 echo $main
 echo $temp_min
 echo $temp_max

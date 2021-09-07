@@ -19,27 +19,27 @@ data=$(cat './test_data/res_sample.json')
 
 # HTTP STATUS_CODE
 if [[ $data =~ (\"cod\":[0-9]{3}) ]]; then
-				status_cd=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
+	status_cd=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
 fi
 
 # お天気
 if [[ $data =~ (\"main\":\"[a-zA-Z]+\") ]]; then
-				main=${BASH_REMATCH[1]}
+	main=${BASH_REMATCH[1]}
 fi
 
 # 最低気温
 if [[ $data =~ (\"temp_min\":[0-9]{1,3}\.[0-9]{1,3}) ]]; then
-				temp_min=${BASH_REMATCH[1]}
+	temp_min=${BASH_REMATCH[1]}
 fi
 
 # 最高気温
 if [[ $data =~ (\"temp_max\":[0-9]{1,3}\.[0-9]{1,3}) ]]; then
-				temp_max=${BASH_REMATCH[1]}
+	temp_max=${BASH_REMATCH[1]}
 fi
 
 if [[ $status_cd -ge 400 ]]; then
-				echo "APIの実行で問題が発生しました。 HTTP_STATUS_CD=$status_cd"
-				exit 1
+	echo "APIの実行で問題が発生しました。 HTTP_STATUS_CD=$status_cd"
+	exit 1
 fi
 
 echo $main

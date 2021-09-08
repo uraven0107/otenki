@@ -36,25 +36,25 @@ fi
 # 都市名
 # v1.0 日本語未対応
 if [[ $data =~ (\"name\":\"[a-zA-Z]+\") ]]; then
-	name=${BASH_REMATCH[1]}
+	name=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
 fi
 
 # お天気
 if [[ $data =~ (\"main\":\"[a-zA-Z]+\") ]]; then
-	main=${BASH_REMATCH[1]}
+	main=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
 fi
 
 # 最低気温
 if [[ $data =~ (\"temp_min\":[0-9]{1,3}\.[0-9]{1,3}) ]]; then
-	temp_min=${BASH_REMATCH[1]}
+	temp_min=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
 fi
 
 # 最高気温
 if [[ $data =~ (\"temp_max\":[0-9]{1,3}\.[0-9]{1,3}) ]]; then
-	temp_max=${BASH_REMATCH[1]}
+	temp_max=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
 fi
 
-echo $name
-echo $main
-echo $temp_min
-echo $temp_max
+echo "都市名:$name"
+echo "お天気:$main"
+echo "最低気温:$temp_min"
+echo "最高気温:$temp_max"

@@ -7,7 +7,7 @@ if [[ ! -f $CONFIG_FILE ]]; then
 	echo "設定ファイルが見つかりません。 file=${CONFIG_FILE}"
 	exit 1
 fi
-source ./.cfg
+source $CONFIG_FILE
 
 data=''
 status_cd=0
@@ -57,6 +57,8 @@ if [[ $data =~ (\"main\":\"[a-zA-Z]+\") ]]; then
 		'"Clouds"' ) cat ${DATA_DIR}/clouds.aa ;;
 
 		'"Snow"' ) cat ${DATA_DIR}/snow.aa ;;
+
+		* ) cat ${DATA_DIR}/undefined.aa ;;
 
 	esac
 fi

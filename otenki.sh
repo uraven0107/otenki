@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-CONFIG_FILE='./.cfg'
+DIR=`dirname $0`
+DATA_DIR="${DIR}/data"
+CONFIG_FILE="${DIR}/.cfg"
 if [[ ! -f $CONFIG_FILE ]]; then
 	echo "設定ファイルが見つかりません。 file=${CONFIG_FILE}"
 	exit 1
@@ -33,6 +35,8 @@ if [[ $status_cd -ge 400 ]]; then
 	exit 1
 fi
 
+clear
+
 # 都市名
 # v1.0 日本語未対応
 if [[ $data =~ (\"name\":\"[a-zA-Z]+\") ]]; then
@@ -42,6 +46,19 @@ fi
 # お天気
 if [[ $data =~ (\"main\":\"[a-zA-Z]+\") ]]; then
 	main=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
+	
+	# v1.0 基本的な天気のみ
+	case $main in
+
+		'"Clear"' ) source ${DATA_DIR}/clear.aa;;
+
+		'"Rain"' ) source ${DATA_DIR}/rain.aa ;;
+
+		'"Clouds"' ) source ${DATA_DIR}/clouds.aa ;;
+
+		'"Snow"' ) source ${DATA_DIR}/snow.aa ;;
+
+	esac
 fi
 
 # 最低気温

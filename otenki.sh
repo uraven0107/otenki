@@ -50,13 +50,13 @@ if [[ $data =~ (\"main\":\"[a-zA-Z]+\") ]]; then
 	# v1.0 基本的な天気のみ
 	case $main in
 
-		'"Clear"' ) source ${DATA_DIR}/clear.aa;;
+		'"Clear"' ) cat ${DATA_DIR}/clear.aa ;;
 
-		'"Rain"' ) source ${DATA_DIR}/rain.aa ;;
+		'"Rain"' ) cat ${DATA_DIR}/rain.aa ;;
 
-		'"Clouds"' ) source ${DATA_DIR}/clouds.aa ;;
+		'"Clouds"' ) cat ${DATA_DIR}/clouds.aa ;;
 
-		'"Snow"' ) source ${DATA_DIR}/snow.aa ;;
+		'"Snow"' ) cat ${DATA_DIR}/snow.aa ;;
 
 	esac
 fi
@@ -73,5 +73,4 @@ fi
 
 echo "都市名:$name"
 echo "お天気:$main"
-echo "最低気温:$temp_min"
-echo "最高気温:$temp_max"
+echo "最低気温:$temp_min / 最高気温:$temp_max"

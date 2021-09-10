@@ -27,7 +27,7 @@ fi
 
 # HTTP STATUS_CODE
 if [[ $data =~ (\"cod\":[0-9]{3}) ]]; then
-	status_cd=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
+	status_cd=$(echo ${BASH_REMATCH[1]} | cut -d ":" -f2)
 fi
 
 if [[ $status_cd -ge 400 ]]; then
@@ -40,23 +40,23 @@ clear
 # 都市名
 # v1.0 日本語未対応
 if [[ $data =~ (\"name\":\"[a-zA-Z]+\") ]]; then
-	name=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
+	name=$(echo ${BASH_REMATCH[1]} | cut -d ":" -f2 | sed "s/\"//g")
 fi
 
 # お天気
 if [[ $data =~ (\"main\":\"[a-zA-Z]+\") ]]; then
-	main=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
+	main=$(echo ${BASH_REMATCH[1]} | cut -d ":" -f2 | sed "s/\"//g")
 	
 	# v1.0 基本的な天気のみ
 	case $main in
 
-		'"Clear"' ) cat ${DATA_DIR}/clear.aa ;;
+		'Clear' ) cat ${DATA_DIR}/clear.aa ;;
 
-		'"Rain"' ) cat ${DATA_DIR}/rain.aa ;;
+		'Rain' ) cat ${DATA_DIR}/rain.aa ;;
 
-		'"Clouds"' ) cat ${DATA_DIR}/clouds.aa ;;
+		'Clouds' ) cat ${DATA_DIR}/clouds.aa ;;
 
-		'"Snow"' ) cat ${DATA_DIR}/snow.aa ;;
+		'Snow' ) cat ${DATA_DIR}/snow.aa ;;
 
 		* ) cat ${DATA_DIR}/undefined.aa ;;
 
@@ -65,12 +65,12 @@ fi
 
 # 最低気温
 if [[ $data =~ (\"temp_min\":[0-9]{1,3}\.[0-9]{1,3}) ]]; then
-	temp_min=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
+	temp_min=$(echo ${BASH_REMATCH[1]} | cut -d ":" -f2)
 fi
 
 # 最高気温
 if [[ $data =~ (\"temp_max\":[0-9]{1,3}\.[0-9]{1,3}) ]]; then
-	temp_max=$(echo ${BASH_REMATCH[1]} | awk -F '[:]' '{print $2}')
+	temp_max=$(echo ${BASH_REMATCH[1]} | cut -d ":" -f2)
 fi
 
 echo "都市名:$name"

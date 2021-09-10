@@ -2,6 +2,7 @@
 
 DIR=`dirname $0`
 DATA_DIR="${DIR}/data"
+AA_DIR="${DATA_DIR}/aa"
 CONFIG_FILE="${DIR}/.cfg"
 if [[ ! -f $CONFIG_FILE ]]; then
 	echo "設定ファイルが見つかりません。 file=${CONFIG_FILE}"
@@ -50,15 +51,15 @@ if [[ $data =~ (\"main\":\"[a-zA-Z]+\") ]]; then
 	# v1.0 基本的な天気のみ
 	case $main in
 
-		'Clear' ) cat ${DATA_DIR}/clear.aa ;;
+		'Clear' ) main='晴れ'; cat ${AA_DIR}/clear.aa ;;
 
-		'Rain' ) cat ${DATA_DIR}/rain.aa ;;
+		'Rain' ) main='雨'; cat ${AA_DIR}/rain.aa ;;
 
-		'Clouds' ) cat ${DATA_DIR}/clouds.aa ;;
+		'Clouds' ) main='曇り'; cat ${AA_DIR}/clouds.aa ;;
 
-		'Snow' ) cat ${DATA_DIR}/snow.aa ;;
+		'Snow' ) main='雪'; cat ${AA_DIR}/snow.aa ;;
 
-		* ) cat ${DATA_DIR}/undefined.aa ;;
+		* ) main='うんち'; cat ${AA_DIR}/undefined.aa ;;
 
 	esac
 fi

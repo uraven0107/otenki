@@ -18,7 +18,7 @@ temp_min=''
 temp_max=''
 
 # v1.0 日本語未対応
-data=$(curl -X GET --max-time 30 -s "https://api.openweathermap.org/data/2.5/weather?id=${ID}&units=metric&lang=en&appid=${APP_KEY}")
+data=$(curl -X GET --max-time 30 -s "https://api.openweathermap.org/data/2.5/weather?id=${CITY_ID}&units=metric&lang=en&appid=${API_KEY}")
 #data=$(cat './test_data/res_sample.json')
 
 if [[ $? -ne 0 ]]; then

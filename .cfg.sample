@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-APP_KEY=
-ID=
+API_KEY=
+CITY_ID=
